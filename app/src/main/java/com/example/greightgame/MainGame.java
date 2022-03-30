@@ -42,7 +42,7 @@ public class MainGame extends AppCompatActivity implements SensorEventListener {
     }
 
     public void move(SensorEvent sense) {
-        xValue = (float) sense.values[0]);
+        xValue = (float) sense.values[0];
     }
 
 
