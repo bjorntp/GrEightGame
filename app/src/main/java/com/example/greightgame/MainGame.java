@@ -33,6 +33,7 @@ public class MainGame extends AppCompatActivity implements SensorEventListener {
     private Sensor accSensor;
     float xValue;
     int width;
+    ObjectAnimator animation;
     //DisplayMetrics displayMetrics = new DisplayMetrics();
     //int height = displayMetrics.heightPixels;
     //int width = displayMetrics.widthPixels; // vrf blir den 0??
@@ -61,12 +62,29 @@ public class MainGame extends AppCompatActivity implements SensorEventListener {
 
         width = Resources.getSystem().getDisplayMetrics().widthPixels;
         Log.d("width", Float.toString(width));
+
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         double xValue = sensorEvent.values[0];
-        animate(character, 500 * xValue);
+
+        if (xValue > 0.3 || xValue < -0.3) {
+            animate(character, 400 * xValue);
+        }
+
+
+
+        // set window boundaries
+        /*if (character.getX() > 874) {
+            //Log.d("HERE", "REVERSED");
+            //animation.reverse();
+            //animation.end();
+            //character.setTranslationX(874/2);
+
+            //animate(character, -400*xValue);
+
+        }*/
     }
 
     @Override
@@ -74,22 +92,12 @@ public class MainGame extends AppCompatActivity implements SensorEventListener {
 
     }
 
-    public void move(SensorEvent sense) {
-        xValue = (float) sense.values[0];
-    }
-
 
     private void animate(View view, double dx) {
-        ObjectAnimator animation = ObjectAnimator.ofFloat(view, "translationX", (float) (view.getX() - dx));
+        animation = ObjectAnimator.ofFloat(view, "translationX", (float) (view.getX() - dx));
         animation.setDuration(400);
         animation.start();
-        Log.d("pos: ", Float.toString(view.getX()));
-
-        // set window boundaries
-        if (view.getX() > width) {
-            animation.reverse();
-        }
-
+        Log.d("character pos: ", Float.toString(view.getX()));
 
 
     }
