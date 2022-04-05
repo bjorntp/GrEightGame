@@ -94,12 +94,17 @@ public class MainGame extends AppCompatActivity implements SensorEventListener {
 
 
     private void animate(View view, double dx) {
-        animation = ObjectAnimator.ofFloat(view, "translationX", (float) (view.getX() - dx));
+
+        if(view.getX() - dx > -width/2 && view.getX() - dx < width/2) {
+            animation = ObjectAnimator.ofFloat(view, "translationX", (float) (view.getX() - dx));
+        } else if (view.getX() - dx < -width/2) {
+            animation = ObjectAnimator.ofFloat(view, "translationX", (float) -width/2);
+        } else {
+            animation = ObjectAnimator.ofFloat(view, "translationX", (float) width/2);
+        }
         animation.setDuration(400);
         animation.start();
         Log.d("character pos: ", Float.toString(view.getX()));
-
-
     }
 
 
