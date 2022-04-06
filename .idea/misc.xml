@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_game_activity.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_main.xml" value="0.447463768115942" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main_game.xml" value="0.33" />
       </map>

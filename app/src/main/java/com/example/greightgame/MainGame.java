@@ -18,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -25,7 +26,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainGame extends AppCompatActivity implements SensorEventListener {
+public class MainGame extends Activity implements SensorEventListener {
 
     ImageView character;
     FrameLayout characterContainer;
@@ -62,6 +63,10 @@ public class MainGame extends AppCompatActivity implements SensorEventListener {
 
         width = Resources.getSystem().getDisplayMetrics().widthPixels;
         Log.d("width", Float.toString(width));
+
+        character.setX(-540);
+
+
 
     }
 
