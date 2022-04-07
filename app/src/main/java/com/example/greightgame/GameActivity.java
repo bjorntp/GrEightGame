@@ -13,7 +13,6 @@ public class GameActivity extends Activity implements SensorEventListener{
 
     private SensorManager sensorManager;
     private Sensor accSensor;
-    private float xValue;
     private GameView gameView;
 
     @Override
@@ -23,7 +22,6 @@ public class GameActivity extends Activity implements SensorEventListener{
         setContentView(gameView);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        // register accelerometer sensor
         sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
@@ -31,10 +29,10 @@ public class GameActivity extends Activity implements SensorEventListener{
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+
         double xValue = sensorEvent.values[0];
 
-
-        gameView.move( (int) (xValue * -8) );
+        gameView.setCharacterVelocity( (int) (xValue * -8) );
 
     }
 
