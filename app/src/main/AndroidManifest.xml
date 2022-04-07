@@ -10,10 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GrEightGame">
         <activity
-            android:name=".MainGame"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".GameActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
