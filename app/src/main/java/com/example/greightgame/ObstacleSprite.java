@@ -12,10 +12,10 @@ public class ObstacleSprite {
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-    public ObstacleSprite (Bitmap bmp) {
-        image = bmp;
+    public ObstacleSprite (Bitmap bmp, int size) {
+        image = Bitmap.createScaledBitmap(bmp, size,size,true);
         x = (int) (Math.random() * screenWidth);
-        y = -80;
+        y = 0;
     }
 
 

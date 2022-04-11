@@ -18,19 +18,22 @@ import java.util.ArrayList;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
-    private MainThread thread;
+    public MainThread thread;
     public CharacterSprite characterSprite;
     private ArrayList<ObstacleSprite> obstacles;
     private int scoreCounter;
     private Paint scoreStyle;
     private Typeface font;
+    private int sizeOfObstacles;
+    private int sizeOfCharacter;
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     public GameView(Context context) {
         super(context);
-
+        sizeOfObstacles = 150;
+        sizeOfCharacter = 150;
         getHolder().addCallback(this);
 
         thread = new MainThread(getHolder(), this);
@@ -38,7 +41,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.wizard_mindre));
+        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.wizard), sizeOfCharacter);
         obstacles = new ArrayList<>();
         scoreCounter = 0;
         scoreStyle = new Paint();
@@ -79,12 +82,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             checkCollision(o);
         }
         scoreCounter++;
-        Log.d("Score: ", String.valueOf(scoreCounter));
         if(obstacles.size() < 6 && scoreCounter % 200 == 0) {
             if(scoreCounter % 400 == 0) {
-                obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.stone_mindre)));
+                obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.stone), sizeOfObstacles));
             } else {
-                obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.cactus_mindre)));
+                obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.cactus), sizeOfObstacles));
             }
         }
 
@@ -97,11 +99,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         int oX = o.getPosition()[0];
         int oY = o.getPosition()[1];
 
-        if (cX < oX + 80 &&
-            cX + 80 > oX &&
-            cY < oY + 80 &&
-            cY + 80 > oY) {
-            surfaceDestroyed(thread.surfaceHolder);
+        if (cX < oX + sizeOfObstacles &&
+            cX + sizeOfObstacles > oX &&
+            cY < oY + sizeOfObstacles &&
+            cY + sizeOfObstacles > oY) {
+                thread.setRunning(false);
         }
     }
 

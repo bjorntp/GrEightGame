@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 
 public class GameActivity extends Activity implements SensorEventListener{
 
@@ -26,18 +27,31 @@ public class GameActivity extends Activity implements SensorEventListener{
 
     }
 
+   @Override
+   protected void onPause() {
+       super.onPause();
+       gameView.thread.setRunning(false);
+
+   }
+
+   @Override
+   protected void onResume() {
+       super.onResume();
+   }
+
+   @Override
+   protected void onDestroy(){
+        super.onDestroy();
+        gameView.thread.setRunning(false);
+   }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-
         double xValue = sensorEvent.values[0];
-
         gameView.setCharacterVelocity( (int) (xValue * -8) );
 
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
+    public void onAccuracyChanged(Sensor sensor, int i) {    }
 }
