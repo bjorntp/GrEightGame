@@ -1,6 +1,7 @@
 package com.example.greightgame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -26,6 +27,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Typeface font;
     private int sizeOfObstacles;
     private int sizeOfCharacter;
+    private Context context;
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -104,6 +106,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             cY < oY + sizeOfObstacles &&
             cY + sizeOfObstacles > oY) {
                 thread.setRunning(false);
+                Intent intent = new Intent(getContext(), DeathScreen.class);
+                String message = Integer.toString(scoreCounter);
+                intent.putExtra("score", message);
+                getContext().startActivity(intent);
         }
     }
 
