@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/startButton"
+        android:backgroundTint="@color/purple_300"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="320dp"

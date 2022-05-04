@@ -52,8 +52,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         scoreStyle.setTextAlign(Paint.Align.CENTER);
         font = ResourcesCompat.getFont(getContext(), R.font.roboto_bold);
         scoreStyle.setTypeface(font);
-
-
         thread.setRunning(true);
         thread.start();
     }
@@ -93,6 +91,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
 
     }
+
+
 
     public void checkCollision(ObstacleSprite o) {
 
