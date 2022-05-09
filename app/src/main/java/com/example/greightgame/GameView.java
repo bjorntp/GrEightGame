@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -25,20 +26,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private FenceSprite fence;
     private ArrayList<ObstacleSprite> obstacles;
     private int scoreCounter;
+    private int lastFence;
     private Paint scoreStyle;
     private Typeface font;
     private int sizeOfObstacles;
     private int sizeOfCharacter;
     private Context context;
+    private Vibrator vibrator;
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-    public GameView(Context context) {
+    public GameView(Context context, Vibrator vibrator) {
         super(context);
         sizeOfObstacles = 150;
         sizeOfCharacter = 150;
         getHolder().addCallback(this);
+        this.vibrator = vibrator;
 
         thread = new MainThread(getHolder(), this);
     }
@@ -64,6 +68,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setCharacterVelocity(int v) { characterSprite.setVelocity(v); }
 
+    public void setCharacterJump() { if(!characterSprite.isInTheAir()) {characterSprite.jump();} }
+
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         boolean retry = true;
@@ -87,6 +93,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
         checkFenceCollision(fence);
         scoreCounter++;
+        lastFence++;
 
        if(obstacles.size() < 10 && scoreCounter % 100 == 0) {
             if(scoreCounter % 400 == 0) {
@@ -95,8 +102,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.cactus), sizeOfObstacles));
             }
         }
-       if(Math.random() < 0.001) {
+       if(Math.random() < 0.01 && lastFence > 500) {
            fence.reset();
+           lastFence = 0;
        }
     }
 
@@ -113,10 +121,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         int oX = o.getPosition()[0];
         int oY = o.getPosition()[1];
 
-        if (cX < oX + sizeOfObstacles &&
-            cX + sizeOfObstacles > oX &&
-            cY < oY + sizeOfObstacles &&
-            cY + sizeOfObstacles > oY) {
+        if (cX < oX + sizeOfObstacles - 50 &&
+            cX + sizeOfObstacles - 50 > oX &&
+            cY < oY + sizeOfObstacles - 50 &&
+            cY + sizeOfObstacles - 50 > oY) {
+                vibrator.vibrate(400);
                 thread.setRunning(false);
                 Intent intent = new Intent(getContext(), DeathScreen.class);
                 String message = Integer.toString(scoreCounter);
@@ -133,6 +142,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if(cY < fY + sizeOfObstacles &&
                 cY + sizeOfObstacles > fY && !characterSprite.isInTheAir()){
             thread.setRunning(false);
+            vibrator.vibrate(400);
             Intent intent = new Intent(getContext(), DeathScreen.class);
             String message = Integer.toString(scoreCounter);
             intent.putExtra("score", message);

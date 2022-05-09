@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/drawable/default_background.xml" value="0.4195" />
+        <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/drawable/ic_launcher_background.xml" value="0.4195" />
         <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/font/roboto.xml" value="0.3277777777777778" />
+        <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_death_screen.xml" value="0.48233695652173914" />
+        <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_details.xml" value="0.42083333333333334" />
         <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_game_activity.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_how_to_play.xml" value="0.42083333333333334" />
         <entry key="..\:/Users/bjorn/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_main.xml" value="0.447463768115942" />
         <entry key="..\:/Users/katia/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_death_screen.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/katia/AndroidStudioProjects/GrEightGame/app/src/main/res/layout/activity_main.xml" value="0.22" />

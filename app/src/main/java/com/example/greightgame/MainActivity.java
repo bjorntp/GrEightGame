@@ -20,4 +20,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(gameStart);
     }
 
+    public void howToPlay(View view){
+        Intent howTo = new Intent(this, HowToPlay.class);
+        startActivity(howTo);
+    }
+
 }

@@ -3,12 +3,13 @@ package com.example.greightgame;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 
 import java.util.ArrayList;
 
 public class CharacterSprite {
 
-    private Bitmap defautltImage;
+    private Bitmap usedImage, defautltImage, defaultImageMirrored;
     private ArrayList<Bitmap> jumpImages;
     private int x, y;
     private int xVelocity = 0;
@@ -16,11 +17,17 @@ public class CharacterSprite {
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private boolean inTheAir;
     private int jumpCounter;
+    private Matrix flipMatrix;
 
     public CharacterSprite (Bitmap bmp, int size) {
         defautltImage = Bitmap.createScaledBitmap(bmp,size ,size,true);
+        flipMatrix = new Matrix();
+        flipMatrix.preScale(-1.0f, 1.0f);
+        defaultImageMirrored = Bitmap.createBitmap(bmp, 0,0, bmp.getWidth(), bmp.getHeight(), flipMatrix, true);
+        defaultImageMirrored = Bitmap.createScaledBitmap(defaultImageMirrored ,size ,size,true);
+        usedImage = defautltImage;
         jumpImages = new ArrayList<Bitmap>();
-        for(int i = 50;i >= 0;i--) {
+        for(int i = 30;i >= 0;i--) {
             jumpImages.add(Bitmap.createScaledBitmap(bmp,size + 2 * i,size + 2 * i,true));
         }
         x = (int) (screenWidth * 0.5) - 80;
@@ -30,7 +37,7 @@ public class CharacterSprite {
 
     public void jump(){
         inTheAir = true;
-        jumpCounter = 49;
+        jumpCounter = 29;
     }
 
     public boolean isInTheAir() {
@@ -41,11 +48,11 @@ public class CharacterSprite {
         if(inTheAir) {
             canvas.drawBitmap(jumpImages.get((int) Math.sqrt(jumpCounter * jumpCounter)), x, y, null);
             jumpCounter--;
-            if(jumpCounter == -49){
+            if(jumpCounter == -29){
                 inTheAir = false;
             }
         } else {
-            canvas.drawBitmap(defautltImage, x, y, null);
+            canvas.drawBitmap(usedImage, x, y, null);
         }
     }
 
@@ -55,6 +62,11 @@ public class CharacterSprite {
 
     public void setVelocity(int v) {
         xVelocity = v;
+        if(v > 0) {
+            usedImage = defautltImage;
+        } else {
+            usedImage = defaultImageMirrored;
+        }
     }
     public void update() {
 
