@@ -95,7 +95,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         scoreCounter++;
         lastFence++;
 
-       if(obstacles.size() < 10 && scoreCounter % 100 == 0) {
+       if(obstacles.size() < 5 && scoreCounter % 100 == 0) {
             if(scoreCounter % 400 == 0) {
                 obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.stone), sizeOfObstacles));
             } else {
@@ -106,12 +106,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
            fence.reset();
            lastFence = 0;
        }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        characterSprite.jump();
-        return super.onTouchEvent(event);
     }
 
     public void checkCollision(ObstacleSprite o) {
