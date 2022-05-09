@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -21,6 +22,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public MainThread thread;
     public CharacterSprite characterSprite;
+    private FenceSprite fence;
     private ArrayList<ObstacleSprite> obstacles;
     private int scoreCounter;
     private Paint scoreStyle;
@@ -44,6 +46,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.wizard), sizeOfCharacter);
+        fence = new FenceSprite(BitmapFactory.decodeResource(getResources(), R.drawable.long_fence));
         obstacles = new ArrayList<>();
         scoreCounter = 0;
         scoreStyle = new Paint();
@@ -77,22 +80,31 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update(){
         characterSprite.update();
+        fence.update();
         for(ObstacleSprite o: obstacles) {
             o.update();
             checkCollision(o);
         }
+        checkFenceCollision(fence);
         scoreCounter++;
-        if(obstacles.size() < 6 && scoreCounter % 200 == 0) {
+
+       if(obstacles.size() < 10 && scoreCounter % 100 == 0) {
             if(scoreCounter % 400 == 0) {
                 obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.stone), sizeOfObstacles));
             } else {
                 obstacles.add(new ObstacleSprite(BitmapFactory.decodeResource(getResources(), R.drawable.cactus), sizeOfObstacles));
             }
         }
-
+       if(Math.random() < 0.001) {
+           fence.reset();
+       }
     }
 
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        characterSprite.jump();
+        return super.onTouchEvent(event);
+    }
 
     public void checkCollision(ObstacleSprite o) {
 
@@ -113,13 +125,30 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    public void checkFenceCollision(FenceSprite f) {
+
+        int cY = characterSprite.getPosition()[1];
+        int fY = f.getPosition();
+
+        if(cY < fY + sizeOfObstacles &&
+                cY + sizeOfObstacles > fY && !characterSprite.isInTheAir()){
+            thread.setRunning(false);
+            Intent intent = new Intent(getContext(), DeathScreen.class);
+            String message = Integer.toString(scoreCounter);
+            intent.putExtra("score", message);
+            getContext().startActivity(intent);
+        }
+
+    }
+
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         if(canvas!=null) {
             canvas.drawRGB(234,210,168);
-            characterSprite.draw(canvas);
             canvas.drawText("SCORE: " + String.valueOf(scoreCounter), screenWidth / 2, (float) (screenHeight * 0.1), scoreStyle);
+            fence.draw(canvas);
+            characterSprite.draw(canvas);
             for(ObstacleSprite o: obstacles) {
                 o.draw(canvas);
             }
