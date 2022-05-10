@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -33,6 +34,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private int sizeOfCharacter;
     private Context context;
     private Vibrator vibrator;
+    private MediaPlayer sound;
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -61,6 +63,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         scoreStyle.setTypeface(font);
         thread.setRunning(true);
         thread.start();
+
+
+        sound = MediaPlayer.create(getContext(), R.raw.foamrubber);
+        sound.start();
+        sound.setLooping(true);
     }
 
     @Override
@@ -119,12 +126,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             cX + sizeOfObstacles - 50 > oX &&
             cY < oY + sizeOfObstacles - 50 &&
             cY + sizeOfObstacles - 50 > oY) {
-                vibrator.vibrate(400);
-                thread.setRunning(false);
-                Intent intent = new Intent(getContext(), DeathScreen.class);
-                String message = Integer.toString(scoreCounter);
-                intent.putExtra("score", message);
-                getContext().startActivity(intent);
+                death();
         }
     }
 
@@ -135,14 +137,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         if(cY < fY + sizeOfObstacles &&
                 cY + sizeOfObstacles > fY && !characterSprite.isInTheAir()){
-            thread.setRunning(false);
-            vibrator.vibrate(400);
-            Intent intent = new Intent(getContext(), DeathScreen.class);
-            String message = Integer.toString(scoreCounter);
-            intent.putExtra("score", message);
-            getContext().startActivity(intent);
+            death();
         }
 
+    }
+
+    public void death(){
+        thread.setRunning(false);
+        vibrator.vibrate(500);
+        sound.stop();
+        Intent intent = new Intent(getContext(), DeathScreen.class);
+        String message = Integer.toString(scoreCounter);
+        intent.putExtra("score", message);
+        getContext().startActivity(intent);
     }
 
     @Override

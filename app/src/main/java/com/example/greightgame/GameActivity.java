@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -30,7 +31,9 @@ public class GameActivity extends Activity implements SensorEventListener{
         accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
+
     }
+
 
    @Override
    protected void onPause() {
