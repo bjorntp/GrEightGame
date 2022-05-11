@@ -4,32 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/beige">
+    android:background="@color/beige"
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="298dp"
-        android:layout_height="71dp"
-        android:layout_marginTop="340dp"
+        android:layout_width="184dp"
+        android:layout_height="68dp"
         android:backgroundTint="@color/purple_300"
+        android:fontFamily="@font/roboto"
         android:onClick="startGame"
         android:text="Start running!"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/startButton2"
+        android:id="@+id/howToButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="@color/purple_300"
+        android:fontFamily="@font/roboto"
+        android:textSize="13dp"
         android:onClick="howToPlay"
         android:text="How to play"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startButton" />
+
+    <ImageView
+        android:id="@+id/cactus1"
+        android:layout_width="195dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="244dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/howToButton"
+        app:srcCompat="@drawable/cactus" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="245dp"
+        android:layout_height="288dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/stone" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="336dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
