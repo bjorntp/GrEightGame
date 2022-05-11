@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Your Score"
-        android:textColor="@color/black"
+        android:textColor="@color/charcoal"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -28,7 +28,7 @@
         android:layout_marginTop="11dp"
         android:fontFamily="@font/roboto_bold"
         android:text="0"
-        android:textColor="@color/black"
+        android:textColor="@color/charcoal"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_bold"
         android:text="0"
-        android:textColor="@color/black"
+        android:textColor="@color/charcoal"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -75,12 +75,13 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="429dp"
-        android:layout_height="489dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/homeButton"
+        android:layout_width="203dp"
+        android:layout_height="182dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lost" />
 
     <TextView
@@ -92,7 +93,7 @@
         android:layout_marginEnd="172dp"
         android:fontFamily="@font/roboto_bold"
         android:text="High score"
-        android:textColor="@color/black"
+        android:textColor="@color/charcoal"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.534"

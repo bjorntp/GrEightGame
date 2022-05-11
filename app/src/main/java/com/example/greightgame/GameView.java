@@ -34,7 +34,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private int sizeOfCharacter;
     private Context context;
     private Vibrator vibrator;
-    private MediaPlayer sound;
+    private MediaPlayer sound, jumpSound;
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
@@ -56,7 +56,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         obstacles = new ArrayList<>();
         scoreCounter = 0;
         scoreStyle = new Paint();
-        scoreStyle.setColor(Color.BLACK);
+        scoreStyle.setColor(Color.rgb(54,69,79));
         scoreStyle.setTextSize(50f);
         scoreStyle.setTextAlign(Paint.Align.CENTER);
         font = ResourcesCompat.getFont(getContext(), R.font.roboto_bold);
@@ -68,6 +68,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         sound = MediaPlayer.create(getContext(), R.raw.foamrubber);
         sound.start();
         sound.setLooping(true);
+
+        jumpSound = MediaPlayer.create(getContext(), R.raw.jump_sound);
     }
 
     @Override
@@ -75,7 +77,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setCharacterVelocity(int v) { characterSprite.setVelocity(v); }
 
-    public void setCharacterJump() { if(!characterSprite.isInTheAir()) {characterSprite.jump();} }
+    public void setCharacterJump() {
+        if(!characterSprite.isInTheAir()) {
+            characterSprite.jump();
+            jumpSound.start();
+            vibrator.vibrate(50);
+        }
+    }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
